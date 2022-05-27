@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Идентификация по паспорту</title>
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<section id="intro">
+    <div class="intro-text">
+        <div class="container">
+            <div class="row">
+                <div class="content">
+                    <p>Загрузите фотографию с паспортом в руках.</p>
+                    <form method="post" id="pasport" class="pasport" enctype="multipart/form-data">
+                        <img src="static/images/pasport-2.png" alt="11111">
+                        <p></p>
+                        <input type="file" name="image">
+                        <p></p>
+                        <p><input type="submit" value="Отправить"></p>
+
+                    </form>
+                </div>
+
+                <section id="result">
+                    {% if result and result.error %}
+                    <p>{{ result.error }}</p>
+                    {% elif result and result.result_image %}
+                    <p><img src="{{ result.result_image }}" alt="Результат сравнения лиц"/></p>
+
+                    {% else %}
+                    {% endif %}
+                    <p>Лица на фото принадлежат одному человеку:</p>
+                    {%for key, val in result.items()%}
+                    {% if key != 'result_image' and key != 'Идентификатор файла' %}
+                    <p>{{val}}</p>
+                    {% endif %}
+                    {%endfor%}
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
