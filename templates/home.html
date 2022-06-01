@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link href="static/css/home.css" rel="stylesheet">
+</head>
+<body>
+<section class="intro">
+    <div class='top'></div>
+    <div class='intro_text'> Добро пожаловать!</div>
+    <div class='intro_text'> Для проведения фото идентификации, загрузите снимок на котором Вы держите в руках паспорт </div>
+    <div class='intro_text'> Ваше лицо и фотография в паспорте должны быть хорошо видны </div>
+    <div class='intro_text'> Снимок должен быть качественным и четким, без размытия </div>
+    <div class='intro_text'>
+        <img class='img' src="static/images/pasport-2.png" alt="11111">
+    </div>
+    <form method="post" class="pasport" enctype="multipart/form-data">
+        <label>Выберите файл:</label>
+        <p></p>
+        <input type="file" name="image">
+        <p><input type="submit" value="Отправить"></p>
+        <section id="result">
+            {% if result.error %}
+            <p>{{ result.error }}</p>
+            {% endif %}
+        </section>
+    </form>
+</section>
+</body>
+</html>

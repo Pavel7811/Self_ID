@@ -1,45 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, Response
 from flask import request
-from werkzeug import datastructures
-
 from face_compare import faces_compare
-
 app = Flask(__name__)
 
 
+# обработка поступающих веб-запросов
+# работа с главной страницей
 @app.route('/', methods=["GET", "POST"])
-def method_one():
+def home():
+    # отображение главной страницы
     if request.method == "GET":
-        return render_template("pasport-selfi.html", result={})
+        return render_template("home.html", result={})
     elif request.method == 'POST':
-        filestorage_image: datastructures.FileStorage = request.files["image"]
-        if filestorage_image:
-            result = faces_compare(filestorage_image=filestorage_image)
-
-            return render_template("pasport-selfi.html", result=result)
-        else:
-            return render_template("pasport-selfi.html", result={'error': 'Ошибка загрузки изображения!'})
-
-    #return render_template("pasport-selfi.html")
-
-@app.route('/get_id', methods=["POST"])
-def get_id():
-    """
-    API method for person ifentification
-    :return:        json-file with required params
-    """
-    if request.method == 'POST':
-        filestorage_image: datastructures.FileStorage = request.files["image"]
-        person_id: str = request.args.get('username')
-
-        result = faces_compare(filestorage_image=filestorage_image)
-
-        return result
-
-@app.route('/about')
-def about():
-    return "About page"
+        # получение изображения от пользователя и передача его в функцию сравнения лиц
+        try:
+            image = request.files["image"]
+        except Exception as err:
+            return render_template("home.html", result={'error': 'Ошибка загрузки изображения! Пожалуйста '
+                                                                 'убедитесь, что изображение загружено.'})
+        if image:
+            result = faces_compare(filestorage_image=image)
+            return render_template("result.html", result=result)
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

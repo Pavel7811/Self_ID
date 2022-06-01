@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Камера</title>
+</head>
+<body>
+    <h1> Сделать фотографию </h1>
+    <form method="post" class="webcam" enctype="multipart/form-data">
+        <img src="{{ url_for('web_cam') }}">
+        <p></p>
+        <label>Сделать фото:</label>
+        <p></p>
+        <p><input type="submit" name="button" value="Отправить"></p>
+    </form>
+
+</body>
+</html>

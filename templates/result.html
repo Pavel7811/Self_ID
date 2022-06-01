@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат</title>
+    <link href="static/css/home.css" rel="stylesheet">
+</head>
+<body>
+<section class="intro">
+    <div class='top'></div>
+    <div class="intro_text">
+        {% if result.result_image %}
+        <img src="{{ result.result_image }}" alt="Результат сравнения лиц:"/></div>
+        {% endif %}
+    <div class="intro_text">
+        {% if result['Лица идентичны:'] == 'Да'%}
+            <p>Лицо клиента и фото в паспорте совпадают </p>
+            <p>(результат более 65 %)</p>
+        {% elif result['Лица идентичны:'] == 'Нет' %}
+            <p>Лицо клиента и фото в паспорте отличаются </p>
+            <p>(результат менее 65 %)</p>
+        {% endif %}
+        {% if result['Лица идентичны:'] == 'Не найдено' %}
+        <p>На фотографии не обнаружено лиц, попробуйте другое изображение.</p>
+        {% endif %}
+    </div>
+</section>
+</body>
+</html>
